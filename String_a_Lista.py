@@ -10,26 +10,22 @@
 # Reescribe el script para que procese ese input adecuadamente e imprima la nota media y el DNI
 # de todos los alumnos en ese string. 
 
-# Creamos una lista de los alumnos con sus datos
-# nombre, apellido, DNI, código_asignatura, convocatoria, nota1, nota2, nota3
-Lista_alumnos = [
-    ['David Fernandez', '12311267A', 43527, 2, 9.1, 7.6, 2.4],
-    ['Maria Garcia', '12316487A', 43527, 2, 7.1, 8.6, 5.4],
-    ['Juan Perez', '647829236A', 43527, 2, 8.1, 8.5, 8.4]
-    ]
+# Variable de la cadena que convertiremos en Lista
+matrizCadena = "David Fernandez,12311267A,43527,2,9.1,7.6,2.4\nMaria Garcia,12316487A,43527,2,7.1,8.6,5.4\nJuan Perez,647829236A,43527,2,8.1,8.5,8.4\n"
 
-# Lista vacia para la nota final de los alumnos
-NotaFinal = []
+# Convertir de cadena a lista
+matriz = [fila.split(",") for fila in matrizCadena.strip().split("\n")]
+print(matriz)
 
+# Una vez que tengamos la lista convertida, recorremos el bucle para mostrar la nota media y el DNI de los alumnos
 print("---- NOTA FINAL DE CADA ALUMNO SEGUN SU DNI ----")
 
-# Bucle para recopilar la nota final junto con su DNI
-for alumno in Lista_alumnos:
-    # Filtramos el DNI y la nota media para despues calcular la nota final
-    dni = alumno[1]
-    notaMedia = alumno[4:]
-    media = sum(notaMedia) / len(notaMedia)
-    # Se añade en la lista de "Nota final"
-    NotaFinal.append(media)
-    # Resultado
-    print(f"DNI:{dni}. Nota Final:{round(media,2)}")
+# Recorremos un bucle para filtrar los datos
+for alumno in matriz:
+     # Filtramos el DNI y la nota media para despues calcular la nota final
+     dni = alumno[1]
+     notas = [float(n) for n in alumno[4:]]    # Convertir a float
+     media = sum(notas) / len(notas)
+
+     # Resultado
+     print(f"DNI:{dni}. Nota Final:{round(media,2)}")
